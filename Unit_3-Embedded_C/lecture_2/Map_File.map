@@ -1,0 +1,86 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+Mem              0x00000000         0x04000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00010000                . = 0x10000
+
+.startup        0x00010000       0x20
+ startup.o(.text)
+ .text          0x00010000       0x10 startup.o
+                0x00010000                reset
+ .startup       0x00010010       0x10 app.elf
+
+.text           0x00010020      0x198
+ *(.text)
+ .text          0x00010020       0x18 app.o
+                0x00010020                main
+ .text          0x00010038       0x50 uart.o
+                0x00010038                Uart_Send_String
+ .text          0x00010088       0xcc app.elf
+ *(.rodata)
+ .rodata        0x00010154       0x64 app.o
+                0x00010154                string_buffer_2
+
+.glue_7         0x000101b8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000101b8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000101b8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000101b8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000101b8        0x0
+ .iplt          0x00000000        0x0 startup.o
+
+.rel.dyn        0x000101b8        0x0
+ .rel.iplt      0x00000000        0x0 startup.o
+
+.data           0x000101b8       0xc8
+ *(.data)
+ .data          0x000101b8        0x0 startup.o
+ .data          0x000101b8       0x64 app.o
+                0x000101b8                string_buffer
+ .data          0x0001021c        0x0 uart.o
+ .data          0x0001021c       0x64 app.elf
+
+.igot.plt       0x00010280        0x0
+ .igot.plt      0x00000000        0x0 startup.o
+
+.bss            0x00010280        0x0
+ *(.bss)
+ .bss           0x00010280        0x0 startup.o
+ .bss           0x00010280        0x0 app.o
+ .bss           0x00010280        0x0 uart.o
+                0x00011280                . = (. + 0x1000)
+                0x00011280                stak_top = .
+LOAD startup.o
+LOAD app.o
+LOAD uart.o
+LOAD app.elf
+OUTPUT(a.out elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x2e
+ .ARM.attributes
+                0x00000000       0x22 startup.o
+ .ARM.attributes
+                0x00000022       0x32 app.o
+ .ARM.attributes
+                0x00000054       0x32 uart.o
+ .ARM.attributes
+                0x00000086       0x2e app.elf
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 app.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 uart.o
+ .comment       0x00000000       0x11 app.elf
