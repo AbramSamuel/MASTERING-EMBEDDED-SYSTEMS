@@ -1,0 +1,179 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+P_Main_Algorithm    0x4               Main_Algorithm.o
+P_Alarm_Monitor     0x4               Alarm_Monitor_Driver.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x00000000         0x1f400000         xr
+sram             0x20000000         0x1f400000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x2cc
+ *(.vectors*)
+ .vectors       0x00000000        0xc startup.o
+                0x00000000                g_ptr_func_Vectors
+ *(.text*)
+ .text          0x0000000c       0x44 Alarm_Monitor_Driver.o
+                0x0000000c                START_ALARM
+                0x00000040                STOP_ALARM
+ .text          0x00000050      0x10c driver.o
+                0x00000050                Delay
+                0x00000074                getPressureVal
+                0x0000008c                Set_Alarm_actuator
+                0x000000dc                GPIO_INITIALIZATION
+ .text          0x0000015c       0x58 main.o
+                0x0000015c                main
+ .text          0x000001b4       0x64 Main_Algorithm.o
+                0x000001b4                WAITING
+                0x0000020c                HIGH_PRESSURE_DETECTED
+ .text          0x00000218       0xb4 startup.o
+                0x00000218                MM_Fault_Handler
+                0x00000218                Bus_Handler
+                0x00000218                Default_Handler
+                0x00000218                H_fault_Handler
+                0x00000218                Usage_Fault_Handler
+                0x00000218                NMI_Handler
+                0x00000224                Reset_Handler
+ *(.rodata)
+                0x000002cc                _E_text = .
+
+.glue_7         0x000002cc        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000002cc        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000002cc        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000002cc        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000002cc        0x0
+ .iplt          0x00000000        0x0 Alarm_Monitor_Driver.o
+
+.rel.dyn        0x000002cc        0x0
+ .rel.iplt      0x00000000        0x0 Alarm_Monitor_Driver.o
+
+.data           0x20000000        0x4 load address 0x000002cc
+                0x20000000                _S_data = .
+                0x20000000                . = ALIGN (0x4)
+ *(.data*)
+ .data          0x20000000        0x0 Alarm_Monitor_Driver.o
+ .data          0x20000000        0x0 driver.o
+ .data          0x20000000        0x0 main.o
+ .data          0x20000000        0x4 Main_Algorithm.o
+                0x20000000                Pressure_Threshold
+ .data          0x20000004        0x0 startup.o
+                0x20000004                . = ALIGN (0x4)
+                0x20000004                _E_data = .
+
+.igot.plt       0x20000004        0x0 load address 0x000002d0
+ .igot.plt      0x00000000        0x0 Alarm_Monitor_Driver.o
+
+.bss            0x20000004      0x40c load address 0x000002d0
+                0x20000004                _S_bss = .
+ *(.bss*)
+ .bss           0x20000004        0x0 Alarm_Monitor_Driver.o
+ .bss           0x20000004        0x0 driver.o
+ .bss           0x20000004        0x0 main.o
+ .bss           0x20000004        0x4 Main_Algorithm.o
+                0x20000004                Pressure_Value
+ .bss           0x20000008      0x400 startup.o
+                0x20000408                _E_bss = .
+ COMMON         0x20000408        0x4 Alarm_Monitor_Driver.o
+                0x20000408                P_Alarm_Monitor
+ COMMON         0x2000040c        0x4 Main_Algorithm.o
+                0x2000040c                P_Main_Algorithm
+LOAD Alarm_Monitor_Driver.o
+LOAD driver.o
+LOAD main.o
+LOAD Main_Algorithm.o
+LOAD startup.o
+OUTPUT(PRESSURE_DETECTION.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x4bd
+ .debug_info    0x00000000       0xb1 Alarm_Monitor_Driver.o
+ .debug_info    0x000000b1      0x103 driver.o
+ .debug_info    0x000001b4       0xbf main.o
+ .debug_info    0x00000273       0xc7 Main_Algorithm.o
+ .debug_info    0x0000033a      0x183 startup.o
+
+.debug_abbrev   0x00000000      0x2ee
+ .debug_abbrev  0x00000000       0x81 Alarm_Monitor_Driver.o
+ .debug_abbrev  0x00000081       0x9d driver.o
+ .debug_abbrev  0x0000011e       0x79 main.o
+ .debug_abbrev  0x00000197       0x8f Main_Algorithm.o
+ .debug_abbrev  0x00000226       0xc8 startup.o
+
+.debug_loc      0x00000000      0x208
+ .debug_loc     0x00000000       0x58 Alarm_Monitor_Driver.o
+ .debug_loc     0x00000058       0xc8 driver.o
+ .debug_loc     0x00000120       0x2c main.o
+ .debug_loc     0x0000014c       0x58 Main_Algorithm.o
+ .debug_loc     0x000001a4       0x64 startup.o
+
+.debug_aranges  0x00000000       0xa0
+ .debug_aranges
+                0x00000000       0x20 Alarm_Monitor_Driver.o
+ .debug_aranges
+                0x00000020       0x20 driver.o
+ .debug_aranges
+                0x00000040       0x20 main.o
+ .debug_aranges
+                0x00000060       0x20 Main_Algorithm.o
+ .debug_aranges
+                0x00000080       0x20 startup.o
+
+.debug_line     0x00000000      0x235
+ .debug_line    0x00000000       0x4c Alarm_Monitor_Driver.o
+ .debug_line    0x0000004c       0x99 driver.o
+ .debug_line    0x000000e5       0x7e main.o
+ .debug_line    0x00000163       0x6a Main_Algorithm.o
+ .debug_line    0x000001cd       0x68 startup.o
+
+.debug_str      0x00000000      0x271
+ .debug_str     0x00000000       0xe3 Alarm_Monitor_Driver.o
+ .debug_str     0x000000e3       0x95 driver.o
+                                0x173 (size before relaxing)
+ .debug_str     0x00000178       0x1d main.o
+                                0x14b (size before relaxing)
+ .debug_str     0x00000195       0x52 Main_Algorithm.o
+                                0x11b (size before relaxing)
+ .debug_str     0x000001e7       0x8a startup.o
+                                0x1a3 (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 Alarm_Monitor_Driver.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 driver.o
+ .comment       0x00000000       0x12 main.o
+ .comment       0x00000000       0x12 Main_Algorithm.o
+ .comment       0x00000000       0x12 startup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 Alarm_Monitor_Driver.o
+ .ARM.attributes
+                0x00000033       0x33 driver.o
+ .ARM.attributes
+                0x00000066       0x33 main.o
+ .ARM.attributes
+                0x00000099       0x33 Main_Algorithm.o
+ .ARM.attributes
+                0x000000cc       0x33 startup.o
+
+.debug_frame    0x00000000      0x180
+ .debug_frame   0x00000000       0x48 Alarm_Monitor_Driver.o
+ .debug_frame   0x00000048       0x78 driver.o
+ .debug_frame   0x000000c0       0x2c main.o
+ .debug_frame   0x000000ec       0x48 Main_Algorithm.o
+ .debug_frame   0x00000134       0x4c startup.o
