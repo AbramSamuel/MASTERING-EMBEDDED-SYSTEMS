@@ -1,0 +1,2 @@
+main.c:32:6:EXTI9_callback	8	static
+main.c:40:5:main	32	static
