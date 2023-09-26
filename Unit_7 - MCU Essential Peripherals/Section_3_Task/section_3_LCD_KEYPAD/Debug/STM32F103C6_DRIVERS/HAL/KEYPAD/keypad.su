@@ -1,0 +1,2 @@
+keypad.c:15:6:KEYPAD_INIT	16	static
+keypad.c:64:6:KEYPAD_GET_KEY	16	static
