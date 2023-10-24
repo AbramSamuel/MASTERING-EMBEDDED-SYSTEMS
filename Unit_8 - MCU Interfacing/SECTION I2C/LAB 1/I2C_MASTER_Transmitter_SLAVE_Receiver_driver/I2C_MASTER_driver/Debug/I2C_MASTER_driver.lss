@@ -1,0 +1,254 @@
+
+I2C_MASTER_driver.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000148  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  0000019c  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .comment      00000030  00000000  00000000  0000019c  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000001cc  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000058  00000000  00000000  00000208  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000007af  00000000  00000000  00000260  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000638  00000000  00000000  00000a0f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000397  00000000  00000000  00001047  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000078  00000000  00000000  000013e0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000003df  00000000  00000000  00001458  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    000000e1  00000000  00000000  00001837  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000038  00000000  00000000  00001918  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   8:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+   c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  10:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  14:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  18:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  1c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  20:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  24:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  28:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  2c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  30:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  34:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  38:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  3c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  40:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  44:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  48:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  4c:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+  50:	0c 94 34 00 	jmp	0x68	; 0x68 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+  60:	0e 94 36 00 	call	0x6c	; 0x6c <main>
+  64:	0c 94 a2 00 	jmp	0x144	; 0x144 <_exit>
+
+00000068 <__bad_interrupt>:
+  68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000006c <main>:
+
+int main(void)
+{
+    /* Replace with your application code */
+	unsigned char ch =0;
+	I2C_INIT(0x48);
+  6c:	68 e4       	ldi	r22, 0x48	; 72
+  6e:	70 e0       	ldi	r23, 0x00	; 0
+  70:	80 e0       	ldi	r24, 0x00	; 0
+  72:	90 e0       	ldi	r25, 0x00	; 0
+  74:	0e 94 5a 00 	call	0xb4	; 0xb4 <I2C_INIT>
+
+
+int main(void)
+{
+    /* Replace with your application code */
+	unsigned char ch =0;
+  78:	c0 e0       	ldi	r28, 0x00	; 0
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  7a:	2f ef       	ldi	r18, 0xFF	; 255
+  7c:	84 e3       	ldi	r24, 0x34	; 52
+  7e:	9c e0       	ldi	r25, 0x0C	; 12
+  80:	21 50       	subi	r18, 0x01	; 1
+  82:	80 40       	sbci	r24, 0x00	; 0
+  84:	90 40       	sbci	r25, 0x00	; 0
+  86:	e1 f7       	brne	.-8      	; 0x80 <main+0x14>
+  88:	00 c0       	rjmp	.+0      	; 0x8a <main+0x1e>
+  8a:	00 00       	nop
+	I2C_INIT(0x48);
+    while (1) 
+    {
+		_delay_ms(500);
+		I2C_STATR();					//Transmit Start Condition
+  8c:	0e 94 6d 00 	call	0xda	; 0xda <I2C_STATR>
+		I2C_WRITE(0b11010000+0);		//Transmit  SLA + W(0)
+  90:	80 ed       	ldi	r24, 0xD0	; 208
+  92:	0e 94 76 00 	call	0xec	; 0xec <I2C_WRITE>
+		while ((TWSR) != 0x18);         //SLA + W(0) has been transmitted and ACK has been Received
+  96:	81 b1       	in	r24, 0x01	; 1
+  98:	88 31       	cpi	r24, 0x18	; 24
+  9a:	e9 f7       	brne	.-6      	; 0x96 <main+0x2a>
+		I2C_WRITE(ch++);				// Transmit Data
+  9c:	d1 e0       	ldi	r29, 0x01	; 1
+  9e:	dc 0f       	add	r29, r28
+  a0:	8c 2f       	mov	r24, r28
+  a2:	0e 94 76 00 	call	0xec	; 0xec <I2C_WRITE>
+		while(TWSR != 0x28);			//Data has been transmitted and ACK has been Received
+  a6:	81 b1       	in	r24, 0x01	; 1
+  a8:	88 32       	cpi	r24, 0x28	; 40
+  aa:	e9 f7       	brne	.-6      	; 0xa6 <main+0x3a>
+		I2C_STOP();						//Transmit Stop condition
+  ac:	0e 94 7d 00 	call	0xfa	; 0xfa <I2C_STOP>
+    {
+		_delay_ms(500);
+		I2C_STATR();					//Transmit Start Condition
+		I2C_WRITE(0b11010000+0);		//Transmit  SLA + W(0)
+		while ((TWSR) != 0x18);         //SLA + W(0) has been transmitted and ACK has been Received
+		I2C_WRITE(ch++);				// Transmit Data
+  b0:	cd 2f       	mov	r28, r29
+		while(TWSR != 0x28);			//Data has been transmitted and ACK has been Received
+		I2C_STOP();						//Transmit Stop condition
+    }
+  b2:	e3 cf       	rjmp	.-58     	; 0x7a <main+0xe>
+
+000000b4 <I2C_INIT>:
+
+#include "I2C.h"
+#define PRESCALER 1  //1 ,2,4,16,64
+
+void I2C_INIT(unsigned long SCL_Clock)
+{
+  b4:	9b 01       	movw	r18, r22
+  b6:	ac 01       	movw	r20, r24
+	TWBR = (unsigned char) (((F_CPU/SCL_Clock)-16)/(2*PRESCALER));
+  b8:	60 e0       	ldi	r22, 0x00	; 0
+  ba:	72 e1       	ldi	r23, 0x12	; 18
+  bc:	8a e7       	ldi	r24, 0x7A	; 122
+  be:	90 e0       	ldi	r25, 0x00	; 0
+  c0:	0e 94 80 00 	call	0x100	; 0x100 <__udivmodsi4>
+  c4:	da 01       	movw	r26, r20
+  c6:	c9 01       	movw	r24, r18
+  c8:	40 97       	sbiw	r24, 0x10	; 16
+  ca:	a1 09       	sbc	r26, r1
+  cc:	b1 09       	sbc	r27, r1
+  ce:	b6 95       	lsr	r27
+  d0:	a7 95       	ror	r26
+  d2:	97 95       	ror	r25
+  d4:	87 95       	ror	r24
+  d6:	80 b9       	out	0x00, r24	; 0
+  d8:	08 95       	ret
+
+000000da <I2C_STATR>:
+	
+}
+void I2C_STATR(void)
+{
+
+	TWCR =(1<<TWINT) | (1<<TWSTA) | (1<<TWEN) ;
+  da:	84 ea       	ldi	r24, 0xA4	; 164
+  dc:	86 bf       	out	0x36, r24	; 54
+	while (((TWCR &(1<<7))==0));                 // wait to finish
+  de:	06 b6       	in	r0, 0x36	; 54
+  e0:	07 fe       	sbrs	r0, 7
+  e2:	fd cf       	rjmp	.-6      	; 0xde <I2C_STATR+0x4>
+	while ((TWSR)!=0x08);                   //Start Condition has Been Transmitted
+  e4:	81 b1       	in	r24, 0x01	; 1
+  e6:	88 30       	cpi	r24, 0x08	; 8
+  e8:	e9 f7       	brne	.-6      	; 0xe4 <I2C_STATR+0xa>
+	
+}
+  ea:	08 95       	ret
+
+000000ec <I2C_WRITE>:
+void I2C_WRITE(unsigned char cData)
+{
+	TWDR = cData;
+  ec:	83 b9       	out	0x03, r24	; 3
+	TWCR =(1<<TWINT) | (1<<TWEN) ;
+  ee:	84 e8       	ldi	r24, 0x84	; 132
+  f0:	86 bf       	out	0x36, r24	; 54
+	while ((TWCR & 0x80)==0);               //wait to finish
+  f2:	06 b6       	in	r0, 0x36	; 54
+  f4:	07 fe       	sbrs	r0, 7
+  f6:	fd cf       	rjmp	.-6      	; 0xf2 <I2C_WRITE+0x6>
+}
+  f8:	08 95       	ret
+
+000000fa <I2C_STOP>:
+void I2C_STOP()
+{
+	TWCR = (1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
+  fa:	84 e9       	ldi	r24, 0x94	; 148
+  fc:	86 bf       	out	0x36, r24	; 54
+  fe:	08 95       	ret
+
+00000100 <__udivmodsi4>:
+ 100:	a1 e2       	ldi	r26, 0x21	; 33
+ 102:	1a 2e       	mov	r1, r26
+ 104:	aa 1b       	sub	r26, r26
+ 106:	bb 1b       	sub	r27, r27
+ 108:	fd 01       	movw	r30, r26
+ 10a:	0d c0       	rjmp	.+26     	; 0x126 <__udivmodsi4_ep>
+
+0000010c <__udivmodsi4_loop>:
+ 10c:	aa 1f       	adc	r26, r26
+ 10e:	bb 1f       	adc	r27, r27
+ 110:	ee 1f       	adc	r30, r30
+ 112:	ff 1f       	adc	r31, r31
+ 114:	a2 17       	cp	r26, r18
+ 116:	b3 07       	cpc	r27, r19
+ 118:	e4 07       	cpc	r30, r20
+ 11a:	f5 07       	cpc	r31, r21
+ 11c:	20 f0       	brcs	.+8      	; 0x126 <__udivmodsi4_ep>
+ 11e:	a2 1b       	sub	r26, r18
+ 120:	b3 0b       	sbc	r27, r19
+ 122:	e4 0b       	sbc	r30, r20
+ 124:	f5 0b       	sbc	r31, r21
+
+00000126 <__udivmodsi4_ep>:
+ 126:	66 1f       	adc	r22, r22
+ 128:	77 1f       	adc	r23, r23
+ 12a:	88 1f       	adc	r24, r24
+ 12c:	99 1f       	adc	r25, r25
+ 12e:	1a 94       	dec	r1
+ 130:	69 f7       	brne	.-38     	; 0x10c <__udivmodsi4_loop>
+ 132:	60 95       	com	r22
+ 134:	70 95       	com	r23
+ 136:	80 95       	com	r24
+ 138:	90 95       	com	r25
+ 13a:	9b 01       	movw	r18, r22
+ 13c:	ac 01       	movw	r20, r24
+ 13e:	bd 01       	movw	r22, r26
+ 140:	cf 01       	movw	r24, r30
+ 142:	08 95       	ret
+
+00000144 <_exit>:
+ 144:	f8 94       	cli
+
+00000146 <__stop_program>:
+ 146:	ff cf       	rjmp	.-2      	; 0x146 <__stop_program>
